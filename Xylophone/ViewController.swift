@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import AVFoundation
+
+var player: AVAudioPlayer!
 
 class ViewController: UIViewController {
 
@@ -17,5 +20,20 @@ class ViewController: UIViewController {
 
     
 
+    @IBAction func pressedKeyC(_ sender: UIButton) {
+        
+        playSound(key: sender.currentTitle)
+        sender.layer.opacity = 0.5
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            sender.layer.opacity = 1
+        }
+    }
+    
+    func playSound(key: String?) {
+                let url = Bundle.main.url(forResource:key, withExtension: "wav")
+            player = try! AVAudioPlayer(contentsOf: url!)
+            player.play()
+    }
+    
 }
-
+    
